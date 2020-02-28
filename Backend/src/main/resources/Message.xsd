@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           targetNamespace="http://www.ftn.uns.ac.rs/message" xmlns:msg="http://www.ftn.uns.ac.rs/message"
+           xmlns:us="http://www.ftn.uns.ac.rs/user" xmlns:ag="http://www.ftn.uns.ac.rs/agent">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/user" schemaLocation="User.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/agent" schemaLocation="Agent.xsd"/>
+    <xs:element name="Message">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="xs:long"/>
+                <xs:element name="DateOfSending" type="xs:dateTime"/>
+                <xs:element name="Subject" type="xs:string"/>
+                <xs:element name="Content" type="xs:string"/>
+                <xs:element ref="us:User"/>
+                <xs:element ref="ag:Agent"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetMessagesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetMessagesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="msg:Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SendMessageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="msg:Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SendMessageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

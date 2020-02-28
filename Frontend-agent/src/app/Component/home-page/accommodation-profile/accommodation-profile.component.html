@@ -1,0 +1,117 @@
+<div class="list-group">
+  <div class="list-group-item list-group-item-action flex-column align-items-start">
+    <h2>Details:</h2>
+    <h6><b>Accommodation name:</b> {{accommodation.name}}</h6>
+    <h6><b>Accommodation category:</b> {{accommodation.accommodationCategory.name}}*</h6>
+    <h6><b>Accommodation type:</b> {{accommodation.accommodationType.name}}</h6>
+    <h6><b>Rate:</b> {{accommodation.rate}}</h6>
+    <h6><b>Description:</b> {{accommodation.description}}</h6>
+    <h6><b>Cancellation period:</b> {{accommodation.cancellation.isEnabled}}, {{accommodation.cancellation.days}} days</h6>
+    <h6><b>Address:</b> {{accommodation.address.street}} {{accommodation.address.streetNumber}}, {{accommodation.address.city}},
+    {{accommodation.address.country}}</h6>
+  <h6><b>Capacity(rooms):</b> {{accommodation.capacity}}</h6>
+  <h6><b>Capacity(number of people):</b> {{accommodation.numberOfPeopleCapacity}}</h6>
+  </div>
+</div>
+
+
+<div class="col" >
+  <h5>Comments:</h5>
+</div>
+<div class="list-group">
+  <div *ngFor="let comment of accommodation['comments']" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="w-100 justify-content-between">
+      <div class="d-flex-row">
+        <h6><b>User:</b> {{comment.user.email}}</h6>
+
+        <div class="flex-row"><label class="col-sm-4"><b>Content:</b> {{comment.content}}</label></div>
+        <small><label class="col-sm-4"><b>Status:</b> {{comment.status}}</label></small>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col" >
+  <h5>Additional services:</h5>
+</div>
+
+<div class="list-group">
+  <div *ngFor="let additionalServicePrice of accommodation['additionalServiceWithPrices']" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="w-100 justify-content-between">
+      <div class="d-flex-row" >
+        <h6><b>Additional service:</b> {{additionalServicePrice.additionalServices.name}}</h6>
+
+      </div>
+      <small><label class="col-sm-4"><b>Price:</b> {{additionalServicePrice.price}}</label></small>
+
+    </div>
+  </div>
+</div>
+
+<div class="col" >
+  <h5>Pricelist:</h5>
+</div>
+
+<div class="list-group">
+  <div *ngFor="let item of accommodation['pricelist']['item']" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="w-100 justify-content-between">
+      <div class="d-flex-row">
+        <h6><b>Average price:</b> {{item.price}}€  </h6>
+
+
+      </div>
+
+      <small><label class="col-sm-4"><b>Start date:</b> {{item.startDatePeriod}}</label></small>
+      <small><label class="col-sm-4"><b>End date:</b> {{item.endDatePeriod}}</label></small>
+      <small><label class="col-sm-4"><b>Capacity:</b> {{item.capacity}}</label></small>
+
+
+    </div>
+  </div>
+</div>
+<br>
+<div class="col" >
+<h5>Rooms:</h5>
+</div>
+
+<div class="btn-toolbar" style="margin-left: 95%"  >
+
+  <button  class="btn btn-outline-primary pull-right" (click)="newRoomWithAccommodationName(accommodation)" >New room</button>
+  <br/>
+
+
+</div>
+
+
+<div class="list-group">
+
+  <div *ngFor="let room of accommodation['room']" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="w-100 justify-content-between" (click)="updateRoom(room)" >
+
+      <div class="d-flex-row">
+        <h5  > Room number: {{room['roomNumber']}}  </h5>
+
+      </div>
+        <div class="flex-row"><label class="col-sm-4">Capacity: {{room['capacity']}}</label></div>
+        <div class="flex-row"><label class="col-sm-4">Floor:{{room['floor']}}</label></div>
+
+      <div class="btn-toolbar" style="margin-left: 95%"  >
+          <button  class="btn btn-outline-primary pull-right" (click)="reserveRoom(room)">Reservation</button>
+
+      </div>
+
+
+
+    </div>
+
+    <div class="btn-toolbar" style="margin-left: 95%"  >
+      <span><a (click)="deleteRoom(room)"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>
+
+    </div>
+
+  </div>
+
+</div>
+

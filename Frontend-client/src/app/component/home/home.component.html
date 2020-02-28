@@ -1,0 +1,125 @@
+<div>
+  <br><br>
+  <form style="text-align: center" name="form">
+    <br><br>
+    <div class="row">
+      <div class="col" style="margin-left: 5%">
+        <br><br>
+        <div class="form-group row">
+          <label for="country" class="col-sm-3 col-form-label">Country: </label>
+          <input type="text" id="country" name="from" [(ngModel)]="searchObject['country']"
+                 class="form-control col-sm-8">
+        </div>
+        <div class="form-group row">
+          <label for="town" class="col-sm-3 col-form-label">Town: </label>
+          <input type="text" id="town" name="town" [(ngModel)]="searchObject['town']"
+                 class="form-control col-sm-8">
+        </div>
+        <br><br>
+        <div class="form-group row">
+          <label for="persons" class="form-check-label col-sm-3">Persons</label>
+          <input type="number" [(ngModel)]="searchObject['numberOfPersons']" min="1" class="form-control col-sm-3" id="persons"
+                 name="class">
+        </div>
+      </div>
+      <div class="col" style="margin-right: 3%">
+        <ngb-datepicker #dp (select)="onDateSelect($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+        </ngb-datepicker>
+        <ng-template #t let-date let-focused="focused">
+      <span class="custom-day"
+            [class.focused]="focused"
+            [class.range]="isRange(date)"
+            [class.faded]="isHovered(date) || isInside(date)"
+            (mouseenter)="hoveredDate = date"
+            (mouseleave)="hoveredDate = null">
+        {{ date.day }}
+      </span>
+        </ng-template>
+      </div>
+
+    </div>
+    <!--  <button class="btn-warning btn" style="float: right">Search</button>-->
+
+  </form>
+  <br><br>
+  <div>
+    <button class="btn btn-outline-warning pull-right" style="margin-left: 5%" *ngIf="isFilterVisible === false"
+            (click)="setAdvancedVisible()">Advanced
+    </button>
+    <div *ngIf="isFilterVisible === true" style="margin-left: 5%">
+      <button class="btn btn-outline-warning pull-right" (click)="setAdvancedNotVisible()">Hide advanced
+      </button>
+      <br><br>
+      <div class="row">
+        <div class="col">
+
+          <div class="form-group row">
+            <label for="types" class="form-check-label col-sm-2" style="max-width: 150px">Type  </label>
+            <span class="form-group col" style="max-width: fit-content" *ngFor="let type of accommodationTypes">
+            <input type="radio" class="form-check-input" [(ngModel)]="searchObject['accommodationType']"
+                   [value]="type" name="hotel" id="types"
+                   checked>
+            <label for="types" class="form-check-label">{{type['name']}}</label>
+          </span>
+          </div>
+
+          <div class="form-group row">
+            <label for="category" class="form-check-label col-sm-2" style="max-width: 150px">Category</label>
+            <select class="form-control col-sm-3" id="category" name="category" [(ngModel)]="searchObject['accommodationCategory']">
+              <option *ngFor="let cat of accommodationCategories" [ngValue]="cat">{{cat['name']}}</option>
+            </select>
+          </div>
+
+          <div class="form-group row">
+            <label for="cancelEnabled" class="form-check-label col-sm-2" style="max-width: 150px">Cancellation enabled</label>
+
+            <span class="form-group col" style="max-width: fit-content">
+        <input type="radio" class="form-check-input" [(ngModel)]="cancellationEnabled" [value]="true" name="oneWay" id="cancelEnabled"
+               (click)="cancellationEnabledSelected()">
+        <label for="cancelEnabled" class="form-check-label">Enabled</label>
+        </span>
+            <span class="form-group col" style="max-width: fit-content">
+          <input type="radio" class="form-check-input" [(ngModel)]="cancellationEnabled" [value]="false"
+                 name="round" id="cancelNotEnabled" (click)="cancellationNotEnabledSelected()">
+          <label for="cancelNotEnabled" class="form-check-label">Not enabled</label>
+        </span>
+
+          </div>
+          <div class="form-group row">
+            <label for="cancelDays" class="form-check-label col-sm-2" style="max-width: 150px">Allowed days for cancellation</label>
+            <input type="number" [(ngModel)]="cancellationDays" min="0" class="form-control col-sm-3" id="cancelDays"
+                   name="class" (click) ="cancellationNumberOfDaysChanged()">
+          </div>
+          <div *ngIf="cancellationEnabled">
+            <label style="font-size: small" >Enabled until: {{enabledUntil | date}}</label>
+          </div>
+          <br><br>
+          <div class="form-group row">
+            <label for="distance" class="form-check-label col-sm-3">Maximum distance [km]</label>
+            <input type="number" [(ngModel)]="searchObject['distance']" min="1" class="form-control col-sm-3" id="distance"
+                   name="class">
+          </div>
+        </div>
+        <div class="col" style="margin-left: 15%">
+          <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+          </agm-map>
+        </div>
+      </div>
+      <div class="col">
+        <h6>Additional services</h6>
+        <div *ngFor="let add of additionalServices" class="row" style="margin-left: 2%">
+          <label class="form-check-label " for="additionalServices">{{add['name']}}</label>
+          <input class="form-check-input" type="checkbox" value="add" id="additionalServices" (change)="additionalServicesChanged(add)" >
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn-warning btn" style="float: right; margin-right: 15%; min-width: 100px" (click)="search()">Search</button>
+  <!--<button class="btn btn-outline-warning pull-right" style="margin-left: 5%" *ngIf="isFilterVisible === false" (click)="setFilterVisible()">Filter-->
+  <!--  results-->
+  <!--</button>-->
+
+  <br>
+</div>
+

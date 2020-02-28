@@ -1,0 +1,34 @@
+<div  class="table-responsive">
+  <table class="table table-bordered" >
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User name</th>
+      <th scope="col">Status </th>
+
+      <th scope="col">Content</th>
+      <th scope="col">Accept</th>
+      <th scope="col">Decline</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let service of com; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ service.user_name }}</td>
+      <td>{{ service.status }}</td>
+      <td>{{ service.content }}</td>
+
+      <td>
+        <button type="submit"  (click)="approveComment(service.id, i)"  class="btn btn-warning pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Accept</span>
+        </button>
+        <!--<a class="btn btn-info btn-sm" routerLink="/additional-services/{{ service.id }}/edit">Edit additional service</a>-->
+      </td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="declineComment(service.id,i)">Decline</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

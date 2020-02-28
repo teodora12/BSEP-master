@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #feb34e">
+  <a class="navbar-brand" routerLink="home">
+    <div><img src="https://img.icons8.com/office/40/000000/world-map.png" alt="">Mega travel</div>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <ul id="user" class="navbar-nav ml-auto" style="margin-right: 5%">
+      <li  *ngIf="userRole === ''" class="nav-item active" >
+        <a class="nav-link" routerLink="login" >Log In </a>
+      </li>
+      <li *ngIf="userRole === ''" class="nav-item active" >
+        <a class="nav-link" routerLink="register">Register </a>
+
+      <li *ngIf="userRole !== ''" class="nav-item active" >
+        <a class="nav-link"  (click)="logout()">Log out </a>
+      </li>
+
+
+
+
+      <li  class="nav-item dropdown" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarFeaturesDropdownMenu" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">Agent</a>
+        <div class="dropdown-menu dropdown-left-manual" aria-labelledby="navbarFeaturesDropdownMenu">
+          <a class="dropdown-item" routerLink="messages">All messages</a>
+          <a class="dropdown-item" routerLink="reservations">All reservations</a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</nav>

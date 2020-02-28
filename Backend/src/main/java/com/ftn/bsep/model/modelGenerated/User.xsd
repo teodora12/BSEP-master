@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           targetNamespace="http://www.ftn.uns.ac.rs/user" xmlns:addr="http://www.ftn.uns.ac.rs/address"
+           xmlns:us="http://www.ftn.uns.ac.rs/user">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/address" schemaLocation="Address.xsd"/>
+    <xs:element name="User">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="xs:long"/>
+                <xs:element name="Name" type="xs:string"/>
+                <xs:element name="Surname" type="xs:string"/>
+                <xs:element name="Username" type="xs:string"/>
+                <xs:element name="Password" type="xs:string"/>
+                <xs:element name="Email" type="xs:string"/>
+                <xs:element name="Role">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="User"/>
+                            <xs:enumeration value="Admin"/>
+                            <xs:enumeration value="Agent"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element minOccurs="0" ref="addr:Address"/>
+                <xs:element name="Enabled" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="RegisterAgentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="us:User"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="RegisterAgentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

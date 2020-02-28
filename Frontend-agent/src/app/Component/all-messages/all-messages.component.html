@@ -1,0 +1,17 @@
+<div class="list-group">
+  <div *ngFor="let message of messages"
+       class="list-group-item list-group-item-action flex-column align-items-start">
+    <div >
+      <div class="d-flex-row">
+        <h5 class="col-sm-4"> {{message['subject']}}</h5>
+      </div>
+
+      <div class="flex-row"><label class="col-sm-4">From: {{message['user']['email']}}</label><button class="btn btn-outline-primary pull-right"  [routerLink]="['/message/create/'.concat(message.user.id) ]">Reply</button></div>
+        <div class="flex-row"><label class="col-sm-4">Content: {{message['content']}}</label></div>
+      <div class="flex-row"><label class="col-sm-4">Date: {{message['dateOfSending']}}</label></div>
+
+
+    </div>
+  <!--  <span><a *ngIf="userRole === 'ROLE_ADMIN_SERVICE' && user.inChargeOf === car.carServiceId" (click)="deleteCar(car)"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span> -->
+  </div>
+</div>

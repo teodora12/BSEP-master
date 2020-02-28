@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/address" xmlns:addr="http://www.ftn.uns.ac.rs/address">
+    <xs:element name="Address">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="xs:long"/>
+                <xs:element name="Country" type="xs:string"/>
+                <xs:element name="City" type="xs:string"/>
+                <xs:element name="Street" type="xs:string"/>
+                <xs:element name="StreetNumber" type="xs:string"/>
+                <xs:element name="Longitude" type="xs:double"/>
+                <xs:element name="Latitude" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-3"></div>
+    <div class="col-md-6">
+      <form name="newCertificate" #f="ngForm" (submit)="createCertificate()"  novalidate class="form-signin">
+
+        <h2 class="form-signin-heading">New self-signed certificate</h2>
+        <br><br>
+
+        <div class="container form-group">
+          <label class="col-sm-6"> Alias:  </label>
+          <input class="col-sm-6" type="text"  name="alias" [(ngModel)]="certificate.alias" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Issued to (CN):  </label>
+          <input class="col-sm-6" type="text"  name="givenName"  [(ngModel)]="certificate.issuedToCommonName" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Surname:  </label>
+          <input class="col-sm-6" type="text"  name="surname"  [(ngModel)]="certificate.surname" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Given name:  </label>
+          <input class="col-sm-6" type="text"  name="givenName"  [(ngModel)]="certificate.givenName" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Organisation:  </label>
+          <input class="col-sm-6" type="text"  name="o" [(ngModel)]="certificate.organisation" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Organisational unit:  </label>
+          <input class="col-sm-6" type="text"  name="ou" [(ngModel)]="certificate.organisationalUnit" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Country:  </label>
+          <input class="col-sm-6" type="text"  name="country" [(ngModel)]="certificate.country" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6" for="withoutValid" > Email:  </label>
+          <select [(ngModel)]="certificate.email" id="withoutValid" name="withoutValid">
+            <option *ngFor="let valid of withoutValidForCombo" [value]="valid"  >{{valid}} </option>
+          </select>
+        </div>
+
+        <div class="container form-group">
+          <label class="col-sm-6"> Valid from:  </label>
+          <input class="col-sm-6" type="date"  name="validFrom"  [(ngModel)]="certificate.validFrom" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Valid to:  </label>
+          <input class="col-sm-6" type="date"  name="validTo" [(ngModel)]="certificate.validTo" />
+        </div>
+
+        <br><br>
+
+        <div class="container form-group">
+          <label class="col-sm-6"> Keystore name:  </label>
+          <input class="col-sm-6" type="text" name="keystoreName" [(ngModel)]="certificate.keystoreName" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Keystore password:  </label>
+          <input class="col-sm-6" type="password"  name="keystorePassword" [(ngModel)]="certificate.keystorePassword" />
+        </div>
+
+        <div>
+          <button class="pull-right btn btn-warning" style="margin-left: 90%">Generate</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>

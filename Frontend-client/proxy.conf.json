@@ -1,0 +1,28 @@
+{
+  "/api": {
+    "target": "http://localhost:8762",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/user-admin-service": {
+    "target": "http://localhost:8762",
+    "secure": false,
+    "changeOrigin":true,
+    "logLevel": "debug"
+  },
+  "/search-micro-service": {
+    "target": "http://localhost:8762",
+    "secure": false,
+    "changeOrigin":true,
+    "logLevel": "debug"
+  },
+  "/reservation-micro-service": {
+    "target": "http://localhost:8762",
+    "secure": false,
+    "changeOrigin":true,
+    "logLevel": "debug"
+  }
+
+}
+

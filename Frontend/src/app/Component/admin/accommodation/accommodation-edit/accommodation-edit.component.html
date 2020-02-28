@@ -1,0 +1,284 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-3"></div>
+    <div class="col-md-6">
+      <form name="form" class="form-signin">
+
+        <div class="form-group">
+          <label>Name*</label>
+          <input type="text"
+                 id="name"
+                 class="form-control"
+                 name="name"
+                 [(ngModel)]="accommodation.name"
+
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description*</label>
+          <input type="text"
+                 id="description"
+                 class="form-control"
+                 name="description"
+
+                 [(ngModel)]="accommodation.description"
+          />
+
+        </div>
+
+        <div class="form-group">
+          <label for="type">Accommodation type*</label>
+          <select name="type" [(ngModel)]="accommodation.accommodationType.id" required class="form-control">
+            <!-- [(ngModel)]="model" name="type"> -->
+            <!--<option selected="selected" -->
+            <!--disabled="true">{{accommodation?.accommodationType?.name}} </option>-->
+            <option *ngFor="let t of types" [value]="t.id">{{t.name}}</option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label for="category">Accommodation category*</label>
+          <select name="category" [(ngModel)]="accommodation.accommodationCategory.id" required
+                  class="form-control"><!-- [(ngModel)]="model" name="type"> -->
+            <!--<option selected="selected" value="{{accommodation?.accommodationCategory?.id}}"-->
+            <!--disabled="true"> {{accommodation?.accommodationCategory?.name}}</option>-->
+            <option *ngFor="let at of services" [value]="at.id">{{at.name}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="capacityy">Capacity*</label>
+          <input type="text"
+                 id="capacityy"
+                 class="form-control"
+                 name="capacityy"
+                 [(ngModel)]="accommodation.capacity"
+
+          />
+
+        </div>
+        <form [formGroup]="agenti">
+        <div class="form-group">
+          <label for="agent">Agent*</label>
+          <select name="agent" formControlName="IdAgenta" required class="form-control">
+            <!--<option selected="selected"-->
+            <!--disabled="true">{{accommodation.agent[0].id}} </option>-->
+            <option *ngFor="let at of agents" [value]="at.id">{{at.email}}</option>
+          </select>
+        </div>
+        </form>
+
+
+        <div class="form-group ">
+        <label for="inputName3" class="col-sm-2 col-form-label">Address*</label>
+
+        <input placeholder="search for location"  autocomplete="true" autocapitalize="off" spellcheck="false" type="text"
+        class="form-control" #search [formControl]="searchControl"  required>
+        </div>
+        <!--<div *ngIf="f.submitted && name.invalid" class="invalid-feedback">-->
+        <!--<div *ngIf="search.required">Address selection is required</div>-->
+
+        <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-4">-->
+        <div class="form-group">
+        <label for="inputACountry3" class="col-sm-2 col-form-label">Country</label>
+        <input  type="text" readonly="readonly" class="form-control" id="inputACountry3" placeholder="Country" [(ngModel)]="accommodation['address']['country']"aria-multiline="true"  name="country">
+        </div>
+        <div class="form-group">
+        <label for="inputCity3" class="col-sm-2 col-form-label">City</label>
+        <input  type="text" readonly="readonly" class="form-control" id="inputCity3" placeholder="City" aria-multiline="true" [(ngModel)]="accommodation['address']['city']" name="city">
+        </div>
+        <!--</div>-->
+        <!--<div class="col-sm-4">-->
+        <div class="form-group">
+        <label for="inputStreet3" class="col-sm-2 col-form-label">Street</label>
+        <input type="text" readonly="readonly" class="form-control" id="inputStreet3" placeholder="Street" aria-multiline="true" [(ngModel)]="accommodation['address']['street']" name="street">
+        </div>
+        <div class="form-group">
+        <label for="inputAddressNumber3" class="col-sm-2 col-form-label">Number</label>
+        <input  type="text"  readonly="readonly" class="form-control" id="inputAddressNumber3" placeholder="Street number" aria-multiline="true" [(ngModel)]="accommodation['address']['streetNumber']" name="addressNumber">
+        </div>
+        <!--</div>-->
+        <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+        </agm-map>
+        <!--</div>-->
+
+
+        <!--</div>-->
+
+        <div  *ngFor="let a of additional; let i= index;" class="container form-group">
+          <label for="additionalSer" class="col-sm-6"> {{a.name}}  </label>
+          <input id="additionalSer"    type="checkbox" [checked]="a['included']" value="{{a.id}}" (change)="a['included'] = !a['included']"
+                 name="additionalSer"
+          />
+          <input type="text"
+                 id="additionalPrice"
+                 class="form-control"
+                 [name]="a.id"
+                 [(ngModel)]="a.price" />
+
+
+
+        </div>
+
+      <form  name="form" [formGroup]="apartmentForm">
+        <div class="form-group">
+          <label for="pricePlansss">All accommodation price plans</label>
+
+        </div>
+        <table class="table table-bordered" *ngIf="services && services.length > 0; else servicesNotFound">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Capacity</th>
+            <th scope="col">Edit</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let pp of accommodation?.pricelist?.item; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ pp.startDatePeriod  }}</td>
+            <td>{{ pp.endDatePeriod}}</td>
+            <td>{{ pp.price}}</td>
+            <td>{{ pp.capacity}}</td>
+            <td>
+              <button type="submit" (click)="editItem(pp.id)" class="btn btn-warning pull-right">
+                <i class="fa fa-envelope-o"></i>
+                <span> Edit Item</span>
+              </button>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+
+
+
+        <div class="form-group">
+
+          <label for="pricePlans" size="100">Price plan </label>
+          <button type="button" (click)="show()" class="btn btn-outline-info">New price plan</button>
+          <div *ngIf="moreThanOne">
+            <div *ngFor="let pp of pricePlans" >
+              <label>
+                <input formControlName="pricePlans" [checked]="pp" type="checkbox" name="pricePlans" value="{{pp.id}}" (change)="isAnswerProvidedPP($event, pp)"/>
+                {{pp.startPeriodDate}} {{pp.endPeriodDate}} {{pp.price}}
+              </label>
+            </div>
+          </div>
+
+
+          <div *ngIf="showNewPricePlan">
+            <hr>
+            <div class="form-group">
+              <label for="startPeriodDate">Start date</label>
+              <input formControlName="startPeriodDate" id="startPeriodDate" type="date"/>
+            </div>
+
+
+            <div class="form-group">
+              <label for="endPeriodDate">End date</label>
+              <input formControlName="endPeriodDate" id="endPeriodDate" type="date"/>
+            </div>
+
+
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input formControlName="price" type="number" class="form-control" id="price"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="capacity">Room capacity</label>
+              <input formControlName="capacity" type="number" class="form-control" id="capacity"
+              >
+            </div>
+
+            <div>
+              <button type="button" (click)="addPricePlan()" [disabled]="apartmentForm.controls['startPeriodDate'].invalid ||
+	          		apartmentForm.controls['endPeriodDate'].invalid ||
+	          		apartmentForm.controls['price'].invalid"
+                      class="btn btn-info btn-block">Add
+              </button>
+            </div>
+            <hr>
+          </div>
+        </div>
+
+
+        <div *ngIf="editClicked">
+          <hr>
+          <div class="form-group">
+            <label for="startPeriodDate1">Start date</label>
+            <input  id="startPeriodDate1"  formControlName="startPeriodDate1"
+                    value="" type="date"/>
+          </div>
+
+
+          <div class="form-group">
+            <label for="endPeriodDate1">End date</label>
+            <input  id="endPeriodDate1" formControlName="endPeriodDate1"  type="date"/>
+          </div>
+
+
+          <div class="form-group">
+            <label for="price1">Price</label>
+            <input class="form-control" id="price1" formControlName="price1"
+                  >
+          </div>
+
+          <div class="form-group">
+            <label for="capacity1">Room capacity</label>
+            <input  type="number" class="form-control" id="capacity1" formControlName="capacity1"
+                   >
+          </div>
+
+          <div>
+            <button type="button" (click)="edit()"
+                    class="btn btn-info btn-block">Edit
+            </button>
+          </div>
+          <hr>
+        </div>
+
+
+      </form>
+
+        <!--<div class="form-group">-->
+
+        <!--<label for="image">Image (upload at least one)</label>-->
+        <!--<div>-->
+        <!--<input formControlName="image" style="display: none" type="file" (change)="onFileChanged($event)"-->
+        <!--#fileInput>-->
+        <!--<button type="button" name="btn" class="btn btn-outline-info" (click)="fileInput.click()">Select File-->
+        <!--</button>-->
+        <!--</div>-->
+
+        <!--</div>-->
+
+
+        <button type="submit" class="btn btn-warning pull-right"  (click)="editAccommodation()">
+          <i class="fa fa-envelope-o"></i>
+          <span>Add</span>
+        </button>
+
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,21 @@
+<div *ngFor="let message of messages" style="margin-left: 5%; margin-right: 5%; margin-top: 10%">
+  <br>
+  <label for="message" class="col-sm-8 col-form-label" style="font-size: large">Message from {{message.agentUsername}}</label>
+  <br><br>
+  <div class="form-group row">
+    <label class="form-control col-sm-2" for="subject">Subject</label>
+
+    <div class="col-sm-6">
+      <label class="form-control" id="subject" name="subject">{{message.subject}}</label>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="form-control col-sm-2" for="message">Message</label>
+
+    <div class="col-sm-6">
+      <textarea class="form-control" id="message" name="message" readonly [rows]="5">{{message.content}}</textarea>
+    </div>
+  </div>
+  <hr>
+</div>

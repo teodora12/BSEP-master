@@ -1,0 +1,15 @@
+{
+  "/user-admin-service": {
+    "target": "http://localhost:8762",
+    "secure": false,
+    "changeOrigin":true,
+    "logLevel": "debug"
+  },
+  "/user-management-micro-service": {
+    "target": "http://localhost:8762",
+    "secure": false,
+    "changeOrigin":true,
+    "logLevel": "debug"
+  }
+
+}

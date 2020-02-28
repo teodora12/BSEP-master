@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<us:User xmlns:addr="http://www.ftn.uns.ac.rs/address"
+ xmlns:us="http://www.ftn.uns.ac.rs/user"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.ftn.uns.ac.rs/user file:/C:/Users/Dell/Desktop/xxxx/User.xsd">
+    <us:Id>-1073741773</us:Id>
+    <us:Name>Name0</us:Name>
+    <us:Surname>Surname0</us:Surname>
+    <us:Username>Username0</us:Username>
+    <us:Password>Password0</us:Password>
+    <us:Email>Email0</us:Email>
+    <us:Role>User</us:Role>
+    <addr:Address>
+        <addr:Id>-1073741773</addr:Id>
+        <addr:Country>Country0</addr:Country>
+        <addr:City>City0</addr:City>
+        <addr:Street>Street0</addr:Street>
+        <addr:StreetNumber>StreetNumber0</addr:StreetNumber>
+        <addr:Longitude>0</addr:Longitude>
+        <addr:Latitude>0</addr:Latitude>
+    </addr:Address>
+    <us:Enabled>false</us:Enabled>
+</us:User>

@@ -1,0 +1,44 @@
+<div *ngIf="accommodations.length <= 0">
+  <h4 style="color: #ffac55">There are no results corresponding to search parameters</h4>
+  <br><br>
+  <button class="btn btn-outline-warning pull-left" (click)="router.navigate(['home'])">Back to search</button>
+</div>
+<div *ngIf="accommodations.length > 0">
+  <br><br>
+  <div class="row" style="margin-left: 5px">
+    <label for="category" class="form-check-label col-sm-2" style="max-width: 150px">Filter by</label>
+    <select class="form-control col-sm-3" id="category" name="category" [(ngModel)]="filterCriteria"
+            (ngModelChange)="sortAccommodations()">
+      <option [ngValue]="1">Price</option>
+      <option [ngValue]="2">Category</option>
+      <option [ngValue]="3">Rate</option>
+      <option [ngValue]="4">Distance</option>
+    </select>
+  </div>
+  <br><br>
+  <div *ngFor="let accommodation of accommodations">
+    <div routerLink="/accommodation/{{accommodation['id']}}">
+      <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <!--      <span class="mb-1 pull-right">-->
+        <!--        <a ><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30" alt=""></a>-->
+        <!--      </span>-->
+        <div class="d-flex w-80 justify-content-between">
+          <h5 class="mb-1">{{accommodation['name']}}</h5>
+
+        </div>
+        <p class="mb-1">Type: {{accommodation['accommodationType']['name']}}</p>
+        <p class="mb-1">Category: {{accommodation['accommodationCategory']['name']}}</p>
+        <p class="mb-1">Rate: {{accommodation['rate']}}</p>
+        <p class="mb-1">{{accommodation['description']}}</p>
+
+         <div class="row" >
+            <div class="col col-sm-2" *ngFor="let pic of  accommodation['picture']">
+              <img [src]=pic width="250" height="150" alt="">
+            </div>
+          </div>
+         <small>{{accommodation['name']}}</small>
+          <!-- <small>Donec id elit non mi porta.</small>-->
+      </div>
+    </div>
+  </div>
+</div>

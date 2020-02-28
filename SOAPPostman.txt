@@ -1,0 +1,183 @@
+Za https u postmanu:
+
+Uci u settings pa onda naci karticu Certificates, ici na New, host: localhost  port: 8090
+cert file: naci u projektu (Backend) Mega_travel.cer
+key file: naci u projektu keystore.jsk     i izabrati putanje do ova dva fajla
+
+ici na okej,
+kasnije pri pokretanju postaviti na post metodu, staviti putanju do odredjenog wsdl fajla, iskljuciti u 
+settings -> general ssl certificate verification 
+
+____________________________________________________________________________________________________________________
+1. https://localhost:8080/ws/messages.wsdl
+
+request body:
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+ 
+ 
+  <Body>
+   
+  
+   <GetMessagesRequest xmlns="http://www.ftn.uns.ac.rs/message">
+    
+   
+     <username>agent1@yahoo.com</username>
+    
+
+    </GetMessagesRequest>
+  
+
+  </Body>
+
+
+</Envelope>
+
+2. https://localhost:8080/ws/messages.wsdl
+  
+request body:
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+ 
+   <Body>
+        
+      <SendMessageRequest xmlns="http://www.ftn.uns.ac.rs/message">
+           
+     <Message>
+                
+       <Id>55</Id>
+                
+        <DateOfSending>[string]</DateOfSending>
+        
+	<Subject>SUBJECT PORUKE</Subject>
+         
+        <Content>sadrzaj porukeeee</Content>
+       
+
+      
+     </Message>
+   
+      </SendMessageRequest>
+ 
+  </Body>
+
+</Envelope>
+
+
+3. https://localhost:8080/ws/accommodations.wsdl
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+  
+  <Body>
+    
+    <ReserveRoomRequest xmlns="http://www.ftn.uns.ac.rs/accommodation">
+      
+      <Reservation>
+       
+         <Price>600.0</Price>
+        
+                 
+       <ArrivalDate>[string]</ArrivalDate>
+       
+         <DepartureDate>[string]</DepartureDate>
+       
+         <Room>
+           
+           <Capacity>3</Capacity>
+         
+           <Floor>6</Floor>
+           
+           <RoomNumber>9</RoomNumber>
+          
+  
+              </Room>
+      
+      </Reservation>
+    
+    </ReserveRoomRequest>
+  
+  </Body>
+
+</Envelope>
+
+4.  https://localhost:8080/ws/accommodations.wsdl
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+  
+  <Body>
+     
+   <CreateAccommodationRequest xmlns="http://www.ftn.uns.ac.rs/accommodation">
+      
+      <Accommodation>
+             
+ 
+        <Room>
+           
+         <Capacity>8</Capacity>
+       
+         <Floor>6</Floor>
+           
+         <RoomNumber>4</RoomNumber>
+                
+    
+    </Room>
+         
+               
+       <AccommodationType>
+                   
+ 
+               <Name>[string]</Name>
+       
+       </AccommodationType>
+          
+          <Description>[string]</Description>
+        
+          <AccommodationCategory>
+           
+          <Name>[string]</Name>
+       
+       </AccommodationCategory>
+        
+         <Cancellation>
+           
+           <IsEnabled>true</IsEnabled>
+          
+           <Days>3</Days>
+               
+    
+         </Cancellation>
+          
+         <Rate>4.3</Rate>
+       
+         <Picture>[string]</Picture>
+            
+      <AdditionalService>
+                  
+ 
+                    <Name>[string]</Name>
+       
+         </AdditionalService>
+      
+      </Accommodation>
+    
+    </CreateAccommodationRequest>
+  
+  </Body>
+
+</Envelope>
+
+5.   https://localhost:8080/ws/accommodations.wsdl
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+  
+  <Body>
+     
+   <GetReservationsRequest xmlns="http://www.ftn.uns.ac.rs/accommodation">
+     
+       <Username>agent1@yahoo.com</Username>
+   
+     </GetReservationsRequest>
+  
+  </Body>
+
+</Envelope>

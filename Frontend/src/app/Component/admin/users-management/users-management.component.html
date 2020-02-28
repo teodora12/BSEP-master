@@ -1,0 +1,101 @@
+<h2 class="form-signin-heading">List of users</h2>
+<div class="table-responsive">
+  <table class="table table-bordered" *ngIf="users && users.length > 0 ; ">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+
+      <th scope="col">Activate/Deactivate</th>
+      <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let service of users ; let i = index;" >
+      <th  scope="row">{{ i + 1 }}</th>
+      <td>{{ service.name }}</td>
+      <td>{{ service.email }}</td>
+
+      <td>
+        <button *ngIf="service.enabled" type="submit" (click)="deactivateU(service.id)"  class="btn btn-warning pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Deactivate</span>
+        </button>
+
+        <button *ngIf="!service.enabled" type="submit"  (click)="activateU(service.id)"  class="btn btn-warning pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Activate</span>
+        </button>
+        <!--<a class="btn btn-info btn-sm" routerLink="/additional-services/{{ service.id }}/edit">Edit additional service</a>-->
+      </td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteAction(service.email)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<br>
+<br>
+<h2 class="form-signin-heading">List of agents</h2>
+<div class="table-responsive">
+  <table class="table table-bordered" *ngIf="agents && agents.length > 0">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Agent</th>
+      <th scope="col">Activate/Deactivate</th>
+
+      <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let service of agents; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ service.name }}</td>
+      <td>{{ service.email }}</td>
+      <td >
+        <button  type="submit" *ngIf="!service.accepted" (click)="ag(service.id)" class="btn btn-warning pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Agent</span>
+        </button>
+        <div *ngIf="idField==service.id" >
+          <label for="name">CompanyNum</label>
+          <input type="text"
+                 id="name"
+                 class="form-control"
+                 name="name"
+                 [(ngModel)]="companyNumber"  />
+          <button  type="submit"  (click)="agentClick(service.email)" class="btn btn-warning pull-right">
+            <i class="fa fa-envelope-o"></i>
+            <span> Add</span>
+          </button>
+        </div>
+      </td>
+
+
+      <td>
+        <button *ngIf="service.accepted" type="submit"  (click)="deactivateA(service.id)" class="btn btn-warning pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Deactivate</span>
+        </button>
+
+        <button *ngIf="!service.accepted" type="submit"  (click)="activateA(service.id)"  class="btn btn-warning pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Activate</span>
+        </button>
+        <!--<a class="btn btn-info btn-sm" routerLink="/additional-services/{{ service.id }}/edit">Edit additional service</a>-->
+      </td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteAgent(service.email)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

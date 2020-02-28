@@ -1,0 +1,44 @@
+<button style="margin-left: 80%" class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample" >Add relations</button>
+
+
+
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <table class="table table-hover">
+      <thead>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Allow relation</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of notInRelation; let i = index">
+        <td>{{user['name']}}</td>
+        <td>{{user['email']}}</td>
+        <td><button class="btn btn-warning" (click)="allowRelation(user, i)">Allow</button></td>
+      </tr>
+      </tbody>
+    </table>
+
+
+
+  </div>
+</div>
+<br/>
+<br/>
+
+
+<table class="table table-hover">
+  <thead>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Forbid relation</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of relations; let i = index">
+      <td>{{user['name']}}</td>
+      <td>{{user['email']}}</td>
+      <td><button class="btn btn-warning" (click)="forbidRelation(user, i)">Forbid</button></td>
+    </tr>
+  </tbody>
+</table>

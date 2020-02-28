@@ -1,0 +1,148 @@
+<div style="margin-left: 5%; margin-right: 5%">
+  <br><br>
+  <div class="form-group row">
+<!--    <label for="name" class="col-sm-2 col-form-label">Name</label>-->
+    <div class="col-sm-10">
+      <label class="form-control" style="font-size: x-large; font-style: oblique" id="name" name="name">{{accommodation['name']}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <label class="form-control" id="description" name="description">{{accommodation['description']}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="type" class="col-sm-2 col-form-label">Type</label>
+    <div class="col-sm-8">
+      <label class="form-control" id="type" name="type">{{accommodation['accommodationType']['name']}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="category" class="col-sm-2 col-form-label">Category</label>
+    <div class="col-sm-8">
+      <label class="form-control" id="category" name="category">{{accommodation['accommodationCategory']['name']}} stars</label>
+    </div>
+  </div>
+
+
+<!--  <p class="mb-1">Type: {{accommodation['accommodationType']['name']}}</p>-->
+<!--  <p class="mb-1">Category: {{accommodation['accommodationCategory']['name']}}</p>-->
+<!--  <p class="mb-1">{{accommodation['description']}}</p>-->
+  <div class="row" >
+    <div class="col col-sm-2" *ngFor="let pic of  accommodation['picture']">
+      <img [src]=pic width="250" height="150" alt="">
+    </div>
+  </div>
+  <br><br>
+</div>
+<div style="background-color: beige">
+  <div style="margin-left: 5%; margin-right: 5%">
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label" style="font-size: x-large; font-style: oblique">Available rooms:</label>
+    </div>
+    <div *ngFor="let room of accommodation.room; let i = index">
+      <div class="col">
+        <div class="form-group row">
+          <label for="roomNbr" class="col-sm-2 col-form-label">Room nbr:</label>
+          <div class="col-sm-3">
+            <label class="form-control" id="roomNbr" name="roomNbr">{{room.roomNumber}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="roomCapacity" class="col-sm-2 col-form-label">Capacity:</label>
+          <div class="col-sm-3">
+            <label class="form-control" id="roomCapacity" name="roomCapacity">{{room.capacity}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="roomFloor" class="col-sm-2 col-form-label">Floor:</label>
+          <div class="col-sm-3">
+            <label class="form-control" id="roomFloor" name="roomFloor">{{room.floor}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="margin-left: 50%">
+        <button class="btn btn-warning" *ngIf="room.reserved === false && enabledRoomSelection === true" (click)="reserveRoomSelected(room, i)">Reserve</button>
+        <button class="btn btn-warning" *ngIf="room.reserved === true" (click)="cancelRoomSelected(room, i)">Cancel reservation</button>
+
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>
+
+<div style="margin-left: 5%; margin-right: 5%">
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label" style="font-size: x-large; font-style: oblique">Additional services:</label>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label" style="font-size: large; font-style: oblique">Included:</label>
+  </div>
+  <div *ngFor="let additional of accommodation.additionalServicesWithPrices">
+    <div class="form-group row" *ngIf="additional.price === 0">
+      <div class="col-sm-3">
+        <label class="form-control" id="additionalIncluded" name="additionalIncluded">{{additional.additionalServices.name}}</label>
+      </div>
+    </div>
+
+  </div>
+<br>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label" style="font-size: large; font-style: oblique">Additional charge:</label>
+    <label class="col-sm-2 col-form-label" style="font-size: large; font-style: oblique">Price:</label>
+
+    <label class="col-sm-2 col-form-label" style="font-size: large; font-style: oblique">Included:</label>
+  </div>
+  <div *ngFor="let additional of accommodation.additionalServicesWithPrices; let i = index">
+    <div class="form-group row" *ngIf="additional.price !== 0">
+      <div class="col-sm-3">
+        <label class="form-control" id="additionalNotIncluded" name="additionalNotIncluded">{{additional.additionalServices.name}}</label>
+      </div>
+      <label for="additionalNotIncluded" class="col-sm-2 form-control">{{additional.price}}</label>
+      <input type="checkbox" style="margin-left: 40px; margin-top: 7px" (click)="checkedAdditionalService(additional, i)">
+    </div>
+
+  </div>
+
+  <br><br>
+  <div class="form-group row">
+    <label for="finalPrice" class="col-sm-2 col-form-label">Final price:</label>
+    <div class="col-sm-3">
+      <label class="form-control" id="finalPrice" name="finalPrice">{{reservation.price}}</label>
+    </div>
+  </div>
+  <br>
+  <div class="form-group row">
+  <button type="submit"  (click)="view()"  class="btn btn-warning pull-right">
+    <i class="fa fa-envelope-o"></i>
+    <span> View comments</span>
+  </button>
+  </div>
+
+  <div *ngIf="viewComments" class="table-responsive">
+    <table class="table table-bordered" >
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User</th>
+        <th scope="col">Content</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let service of commentWaiting; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ service.user_name }}</td>
+        <td>{{ service.content }}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <button class="btn btn-warning" style="margin-left: 70%" *ngIf="enabledRoomSelection === false" (click)="reserve()">Confirm reservation</button>
+  <br><br><br><br>
+
+</div>
+

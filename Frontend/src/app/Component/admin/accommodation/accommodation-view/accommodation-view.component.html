@@ -1,0 +1,39 @@
+
+<div class="table-responsive">
+  <table class="table table-bordered" *ngIf="services && services.length > 0; else servicesNotFound">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Rate</th>
+      <th scope="col">Type</th>
+      <th scope="col">Category</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Activate/Deactivate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let service of services; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ service.name }}</td>
+      <td>{{ service.rate }}</td>
+      <td>{{ service.accommodationType.name }}</td>
+      <td>{{ service.accommodationCategory.name }}</td>
+      <td>
+        <button type="submit"  routerLink="/accommodation view/{{ service.id }}/edit" class="btn btn-warning pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Edit accommodation</span>
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteAccommodation(service.id)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<br>
+<br>
+
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ag:Agent xmlns:addr="http://www.ftn.uns.ac.rs/address"
+ xmlns:ag="http://www.ftn.uns.ac.rs/agent"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.ftn.uns.ac.rs/agent file:/C:/Users/Dell/Desktop/xxxx/Agent.xsd">
+    <ag:Id>-1073741773</ag:Id>
+    <ag:Name>Name0</ag:Name>
+    <ag:Surname>Surname0</ag:Surname>
+    <addr:Address>
+        <addr:Id>-1073741773</addr:Id>
+        <addr:Country>Country0</addr:Country>
+        <addr:City>City0</addr:City>
+        <addr:Street>Street0</addr:Street>
+        <addr:StreetNumber>StreetNumber0</addr:StreetNumber>
+        <addr:Longitude>0</addr:Longitude>
+        <addr:Latitude>0</addr:Latitude>
+    </addr:Address>
+    <ag:CompanyNumber>0</ag:CompanyNumber>
+    <ag:Username>Username0</ag:Username>
+    <ag:Email>Email0</ag:Email>
+    <ag:Password>Password0</ag:Password>
+    <ag:isAccepted>false</ag:isAccepted>
+</ag:Agent>

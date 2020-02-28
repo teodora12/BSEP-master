@@ -1,0 +1,88 @@
+<div *ngIf="messageView === false">
+  <div style="margin-left: 5%; margin-right: 5%">
+    <div *ngIf="reservations.length === 0">
+      <h4 style="color: #ffac55">You haven't made any reservations so far</h4>
+      <br><br>
+      <button class="btn btn-outline-warning pull-left" (click)="router.navigate(['home'])">Back to search</button>
+    </div>
+    <div *ngFor="let reservation of reservations; let i = index">
+      <br>
+      <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <!--      <span class="mb-1 pull-right">-->
+        <!--        <a ><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30" alt=""></a>-->
+        <!--      </span>-->
+        <span>
+      <div class="d-flex w-80 justify-content-between">
+        <h4 class="mb-1">{{reservation['accommodation']['name']}}</h4>
+        <h5 class="mb-1">{{reservation['accommodation']['address']['city']}}, {{reservation['accommodation']['address']['country']}}</h5>
+
+      </div>
+      <p class="mb-1">Arrival date: {{reservation['arrivalDate'] | date}}</p>
+      <p class="mb-1">Departure date: {{reservation['departureDate'] | date}}</p>
+      <p class="mb-1">Price: {{reservation['price']}}</p>
+
+      <h6>Rooms</h6>
+       <div *ngFor="let room of reservation['room']">
+          <div class="col col-sm-6">
+            <label>Room capacity: {{room['capacity']}}, </label>
+            <label>Room floor: {{room['floor']}}</label>
+          </div>
+       </div>
+      <br>
+      <div *ngIf="reservation.paidAdditionalServices !== null && reservation.paidAdditionalServices.length > 0">
+        <h6>Purchased additional services:</h6>
+        <div *ngFor="let addSer of reservation.paidAdditionalServices">
+          <p class="mb-1"> {{addSer.name}}</p>
+        </div>
+      </div>
+          <!-- <small>Donec id elit non mi porta.</small>-->
+    </span>
+        <button *ngIf="reservation.numberOfDaysForCancellation > 0 && reservation.cancellationEnabled" class="btn btn-outline-warning"
+                style="margin-left: 80%" (click)="cancellReservation(reservation, i)">Cancell reservation</button>
+
+        <div *ngIf="reservation.commentsEnabled === true" class="row">
+
+          <div class="col">
+            <label for="comment" class="col-sm-4 col-form-label">Leave comment for accommodation:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="comment" name="comment" [(ngModel)]="reservation.comment">
+            </div>
+
+            <button style="margin-left: 15px" class="btn btn-outline-warning" (click)="submitComment(reservation)">Submit comment</button>
+          </div>
+
+          <div class="col" *ngIf="reservation.hasRated === false" style="margin-left: 20%">
+            <input type="number" [min]="1" [max]="5" [(ngModel)]="reservation.addRating">
+            <button class="btn btn-outline-warning" (click)="rateAccommodation(reservation, i)">Leave rate</button>
+          </div>
+
+        </div>
+
+        <button class="btn btn-outline-warning" (click)="openMessageView(reservation)">Send message to accommodation agent</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="messageView === true" style="margin-left: 5%; margin-right: 5%; margin-top: 10%">
+
+  <label for="message" class="col-sm-8 col-form-label" style="font-size: large">Message for {{this.reservation.accommodation.name}}</label>
+  <br><br>
+  <div class="form-group row">
+    <label class="form-control col-sm-2" for="subject">Subject</label>
+
+    <div class="col-sm-6">
+      <input class="form-control" id="subject" name="subject" [(ngModel)]="this.reservation.subject">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="form-control col-sm-2" for="message">Message</label>
+
+    <div class="col-sm-6">
+      <textarea class="form-control" id="message" name="message" [(ngModel)]="this.reservation.message" [rows]="5"></textarea>
+    </div>
+  </div>
+  <button style="margin-left: 80%" class="btn btn-outline-warning" (click)="sendMessage(this.reservation)">Send message</button>
+
+</div>

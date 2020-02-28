@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/accommodation"
+    xmlns:ac="http://www.ftn.uns.ac.rs/accommodation" xmlns:addr="http://www.ftn.uns.ac.rs/address"
+    xmlns:us="http://www.ftn.uns.ac.rs/user" xmlns:ag="http://www.ftn.uns.ac.rs/agent">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/address" schemaLocation="Address.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/user" schemaLocation="User.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/agent" schemaLocation="Agent.xsd"/>
+    <xs:element name="Accommodation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="xs:long"/>
+                <xs:element name="Name" type="xs:string"/>
+                <xs:element maxOccurs="unbounded" name="Room" type="ac:TRoom"/>
+                <xs:element ref="addr:Address"/>
+                <xs:element name="AccommodationType" type="ac:TAccommodationType"> </xs:element>
+                <xs:element name="Description" type="xs:string"/>
+                <xs:element name="AccommodationCategory" type="ac:TAccommodationCategory"> </xs:element>
+                <xs:element name="Cancellation" type="ac:TCancellation"/>
+                <xs:element name="Rate">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:double">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="5"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element maxOccurs="unbounded" name="Picture" type="xs:string"/>
+                <xs:element ref="ag:Agent" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="AdditionalServiceWithPrices"
+                    type="ac:TAdditionalServicesWithPrices"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="Comments" type="ac:TComment"/>
+                <xs:element name="Pricelist" type="ac:Pricelist"/>
+                <xs:element name="capacity" type="xs:int"/>
+                <xs:element name="NumberOfPeopleCapacity">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TCancellation">
+        <xs:sequence>
+            <xs:element name="IsEnabled" type="xs:boolean"/>
+            <xs:element name="Days" type="xs:int"/>
+            <xs:element name="Id" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Reservation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="xs:long"/>
+                <xs:element name="Price" type="xs:decimal"/>
+                <xs:element ref="us:User"/>
+                <xs:element name="ArrivalDate" type="xs:dateTime"/>
+                <xs:element name="DepartureDate">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:dateTime"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element maxOccurs="unbounded" name="Room" type="ac:TRoom"/>
+                <xs:element name="Status" type="xs:string"/>
+                <xs:element name="AccommodationId" type="xs:long"/>
+                <xs:element name="NumberOfDaysForCancellation">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:long">
+                            <xs:minInclusive value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element maxOccurs="unbounded" name="PaidAdditionalServices"
+                    type="ac:TAdditionalService"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TRoom">
+        <xs:sequence>
+            <xs:element name="Capacity" type="xs:positiveInteger"/>
+            <xs:element name="Floor" type="xs:positiveInteger"/>
+            <xs:element name="RoomNumber" type="xs:positiveInteger"/>
+            <xs:element name="Id" type="xs:long"/>
+            <xs:element name="AccommodationName" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TAdditionalService">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:long"/>
+            <xs:element name="Name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType mixed="false" name="TAccommodationCategory">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:long"/>
+            <xs:element name="Name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TAccommodationType">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:long"/>
+            <xs:element name="Name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ReserveRoomRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ac:Reservation"/>
+                <xs:element name="AccommodationName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ReserveRoomResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateAccommodationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ac:Accommodation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateAccommodationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetReservationsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetReservationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ac:Reservation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TComment">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:long"/>
+            <xs:element ref="us:User"/>
+            <xs:element name="Status" type="xs:string"/>
+            <xs:element name="Date" type="xs:dateTime"/>
+            <xs:element name="Content" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Pricelist">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:long"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="Item" type="ac:Item"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Item">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:long"/>
+            <xs:element name="startDatePeriod" type="xs:dateTime"/>
+            <xs:element name="endDatePeriod" type="xs:dateTime"/>
+            <xs:element name="Price" type="xs:double"/>
+            <xs:element name="Capacity" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TAdditionalServicesWithPrices">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="AdditionalServices"
+                type="ac:TAdditionalService"/>
+            <xs:element name="Price" type="xs:double"/>
+            <xs:element name="Id" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GetAgentAccommodationsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAgentAccommodationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ac:Accommodation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateRoomRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Room" type="ac:TRoom"/>
+                <xs:element name="AccommodationName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateRoomResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Sucess" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UpdateRoomRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Room" type="ac:TRoom"/>
+                <xs:element name="AccommodationName" type="xs:string"/>
+                <xs:element name="OldRoomNumber" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UpdateRoomResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DeleteRoomRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Room" type="ac:TRoom"/>
+                <xs:element name="AccommodationName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DeleteRoomResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ChangeReservationStatusRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ac:Reservation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ChangeReservationStatusResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

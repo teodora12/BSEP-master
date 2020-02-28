@@ -1,0 +1,49 @@
+
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Num</th>
+    <th scope="col">Issued to</th>
+    <th scope="col">Issued by</th>
+    <th scope="col">Issued date</th>
+    <th scope="col">Expiration date</th>
+    <th scope="col">State</th>
+    <th scope="col">Revoke</th>
+    <th scope="col">Relations</th>
+    <th scope="col">Check validity</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let certificate of certificates; let i = index">
+    <th scope="row">{{i + 1}}</th>
+
+    <td>{{certificate.issuedTo}}</td>
+    <td>{{certificate.issuedBy}}</td>
+    <td>{{certificate.issuingDate}}</td>
+    <td>{{certificate.expirationDate}}</td>
+    <td>{{certificate.state}}</td>
+    <td><button *ngIf="certificate.state === 'valid'" (click)="revoke(certificate.id)" class="btn btn-warning"> Revoke </button></td>
+    <td><button class="btn btn-warning" (click)="menageRelations(certificate.id)"> Manage </button></td>
+    <td><button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample"
+                aria-expanded="false" aria-controls="collapseExample"> Check </button></td>
+
+
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <div class="container form-group">
+          <label class="col-sm-6"> Keystore name:  </label>
+          <input class="col-sm-6" type="text"  name="keystoreName" [(ngModel)]="certificate.keystore" />
+        </div>
+        <div class="container form-group">
+          <label class="col-sm-6"> Keystore password:  </label>
+          <input class="col-sm-6" type="password"  name="keystorePassword" [(ngModel)]="certificate.password" />
+        </div>
+
+        <button class="btn btn-warning" (click)="checkValidity(certificate, i)">Check</button>
+      </div>
+    </div>
+
+
+  </tr>
+</table>
